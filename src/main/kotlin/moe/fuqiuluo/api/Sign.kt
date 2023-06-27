@@ -1,5 +1,6 @@
 package moe.fuqiuluo.api
 
+import ANDROID_ID
 import com.tencent.mobileqq.fe.FEKit
 import com.tencent.mobileqq.sign.QQSecuritySign
 import io.ktor.server.application.*
@@ -60,6 +61,7 @@ fun Routing.configSign() {
         val cmd = fetchPost(parameters, "cmd", err = "lack of cmd") ?: return@post
         val seq = (fetchPost(parameters, "seq", err = "lack of seq") ?: return@post).toInt()
         val buffer = (fetchPost(parameters, "buffer", err = "lack of buffer") ?: return@post).hex2ByteArray()
+        val androidId = fetchPost(parameters, "androidId") ?: ANDROID_ID
         val qimei36 = fetchPost(parameters, "qimei36")
 
         lateinit var sign: QQSecuritySign.SignResult
@@ -67,6 +69,7 @@ fun Routing.configSign() {
 
         workerPool.work {
             global["qimei36"] = qimei36
+            global["android_id"] = androidId
             FEKit.changeUin(this, uin)
             sign = QQSecuritySign.getSign(this, qua, cmd, buffer, seq, uin).value
             o3did = global["o3did"] as? String ?: ""

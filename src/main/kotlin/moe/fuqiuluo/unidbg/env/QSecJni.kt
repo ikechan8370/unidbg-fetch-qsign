@@ -137,7 +137,9 @@ class QSecJni(
         if (signature == "android/provider/Settings\$System->getString(Landroid/content/ContentResolver;Ljava/lang/String;)Ljava/lang/String;") {
             val key = vaList.getObjectArg<StringObject>(1).value
             if (key == "android_id") {
-                return StringObject(vm, ANDROID_ID)
+                val androidId = global["android_id"] as String
+                return StringObject(vm, androidId)
+//                return StringObject(vm, ANDROID_ID)
             }
         }
         if (signature == "com/tencent/mobileqq/fe/utils/DeepSleepDetector->getCheckResult()Ljava/lang/String;") {

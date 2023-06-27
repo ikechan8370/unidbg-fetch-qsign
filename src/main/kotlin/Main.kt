@@ -29,7 +29,7 @@ var QQ_VERSION = "8.9.63"
 var QQ_CODE = "4186"
 var QUA = "V1_AND_SQ_8.9.63_4188_HDBM_T"
 var CHANNEL_VERSION = "6.100.248"
-var ANDROID_ID = ""
+var ANDROID_ID = "fa88ca2833f243c4"
 
 private val logger = LoggerFactory.getLogger(Main::class.java)
 var debug: Boolean = false // 调试模式
@@ -50,7 +50,7 @@ fun main(args: Array<String>) {
             error("libfekit.so file is illegal. Your path must include libfekit.so and libQSec.so!")
         }
 
-        ANDROID_ID = it["android_id", "Lack of android_id"]
+//        ANDROID_ID = it["android_id", "Lack of android_id"]
 
         debug = "debug" in it
     }
