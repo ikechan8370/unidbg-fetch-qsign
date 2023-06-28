@@ -75,12 +75,14 @@ class FileResolver(
             ))
         }
 
-        if (path == "/proc/stat/cmdline") {
-            return FileResult.failed(UnixEmulator.ENOTDIR)
+        if (path == "/proc/${emulator.pid}/cmdline"
+            || path == "/proc/stat/cmdline" // an error case
+            ) {
+            return FileResult.success(ByteArrayFileIO(oflags, path, "com.tencent.mobileqq:MSF".toByteArray()))
         }
 
-        if (path == "/proc/${emulator.pid}/cmdline") {
-            return FileResult.success(ByteArrayFileIO(oflags, path, "com.tencent.mobileqq:MSF".toByteArray()))
+        if (path == "/data/app/~~vbcRLwPxS0GyVfqT-nCYrQ==/com.tencent.mobileqq-xJKJPVp9lorkCgR_w5zhyA==/lib/arm64/libfekit.so") {
+            return FileResult.failed(UnixEmulator.EACCES)
         }
 
         if (path == "/system/bin/sh" || path == "/system/bin/ls" || path == "/system/lib/libc.so") {

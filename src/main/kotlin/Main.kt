@@ -36,7 +36,7 @@ var debug: Boolean = false // 调试模式
 
 fun main(args: Array<String>) {
     var port = 0 // API端口
-    var workerCount = 0 // UNIDBG实例数量
+    var workerCount = 5 // UNIDBG实例数量
     var coreLibPath: File // 核心二进制文件路径
     val reloadInterval: Long = 40 // 实例重载间隔（分钟）
 
@@ -60,10 +60,10 @@ fun main(args: Array<String>) {
 
     workerPool = FixedWorkPool(workerCount, {
         logger.info("Try to construct QSignWorker.")
-        QSecVMWorker(it, coreLibPath).work {
+        QSecVMWorker(it, coreLibPath).apply { work {
             init()
             FEKit.init(this)
-        }
+        } }
     }, reloadInterval)
 
     embeddedServer(Netty, port = port, module = Application::init)
