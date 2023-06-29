@@ -14,6 +14,6 @@ data class APIResult<T>(val code: Int,
 
 fun Routing.configIndex() {
     get("/") {
-        call.respond(APIResult(0, "success", "API is common mode"))
+        call.respond("IAA")
     }
 }
