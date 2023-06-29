@@ -29,7 +29,7 @@ services:
             - '--host=0.0.0.0'
             - '--port=9000'
             - '--count=2'
-            - '--library=txlib\8.9.63'
+            - '--library=txlib/8.9.63'
             - '--android_id=fa88ca2833f243c4'
       triggers:
         - name: httpTrigger
